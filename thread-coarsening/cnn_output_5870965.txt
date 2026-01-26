@@ -1,0 +1,175 @@
+The following modules were not unloaded:
+  (Use "module --force purge" to unload all):
+
+  1) csc-tools
+Mon Jan 26 22:42:44 2026       
++---------------------------------------------------------------------------------------+
+| NVIDIA-SMI 535.274.02             Driver Version: 535.274.02   CUDA Version: 12.2     |
+|-----------------------------------------+----------------------+----------------------+
+| GPU  Name                 Persistence-M | Bus-Id        Disp.A | Volatile Uncorr. ECC |
+| Fan  Temp   Perf          Pwr:Usage/Cap |         Memory-Usage | GPU-Util  Compute M. |
+|                                         |                      |               MIG M. |
+|=========================================+======================+======================|
+|   0  NVIDIA A100-SXM4-40GB          On  | 00000000:03:00.0 Off |                    0 |
+| N/A   37C    P0              53W / 400W |      0MiB / 40960MiB |      0%      Default |
+|                                         |                      |             Disabled |
++-----------------------------------------+----------------------+----------------------+
+                                                                                         
++---------------------------------------------------------------------------------------+
+| Processes:                                                                            |
+|  GPU   GI   CI        PID   Type   Process name                            GPU Memory |
+|        ID   ID                                                             Usage      |
+|=======================================================================================|
+|  No running processes found                                                           |
++---------------------------------------------------------------------------------------+
+=== Multi-Configuration CNN with Thread Coarsening ===
+Testing three configurations with real chest X-ray images
+
+
+========================================
+CONFIGURATION: Small
+========================================
+Input Size: 32x32
+Kernel: 3x3, Count: 16
+Batch Size: 64
+Padding: 1, Stride: 1
+Thread Coarsening Factor: 2
+
+Loading chest X-ray images...
+  Loading images from: ../data/chest_xray/train/NORMAL
+    Loaded 32 images
+  Loading images from: ../data/chest_xray/train/PNEUMONIA
+    Loaded 32 images
+Loaded: 32 NORMAL + 32 PNEUMONIA = 64 total
+
+Running direct convolution...
+Running shared memory with thread coarsening...
+Feature maps saved to pooled_feature_maps_Small.txt
+
+=== PERFORMANCE RESULTS ===
+
+Performance comparison:
+  Direct Convolution: 0.076 ms
+  Shared Memory + Thread Coarsening: 0.028 ms
+  Speedup: 2.74x
+
+Layer timings (Shared Memory + Thread Coarsening):
+  Convolution: 0.028 ms
+  ReLU Activation: 0.011 ms
+  Max Pooling: 0.012 ms
+  Total: 0.051 ms
+
+Verification:
+  Max difference: 0.000000e+00
+  Results match: YES
+
+Throughput: 1250000.12 images/second
+
+Sample feature map (first image, first channel, top-left 5x5):
+-0.028 -0.065 -0.064 -0.062 -0.081 
+-0.000 -0.059 -0.096 -0.116 -0.138 
+-0.006 -0.044 -0.070 -0.115 -0.135 
+-0.010 -0.038 -0.058 -0.110 -0.140 
+-0.011 -0.030 -0.060 -0.111 -0.137 
+
+✓ Configuration complete!
+
+========================================
+CONFIGURATION: Medium
+========================================
+Input Size: 256x256
+Kernel: 3x3, Count: 16
+Batch Size: 64
+Padding: 1, Stride: 1
+Thread Coarsening Factor: 2
+
+Loading chest X-ray images...
+  Loading images from: ../data/chest_xray/train/NORMAL
+    Loaded 32 images
+  Loading images from: ../data/chest_xray/train/PNEUMONIA
+    Loaded 32 images
+Loaded: 32 NORMAL + 32 PNEUMONIA = 64 total
+
+Running direct convolution...
+Running shared memory with thread coarsening...
+Feature maps saved to pooled_feature_maps_Medium.txt
+
+=== PERFORMANCE RESULTS ===
+
+Performance comparison:
+  Direct Convolution: 1.135 ms
+  Shared Memory + Thread Coarsening: 1.112 ms
+  Speedup: 1.02x
+
+Layer timings (Shared Memory + Thread Coarsening):
+  Convolution: 1.112 ms
+  ReLU Activation: 0.404 ms
+  Max Pooling: 0.283 ms
+  Total: 1.799 ms
+
+Verification:
+  Max difference: 0.000000e+00
+  Results match: YES
+
+Throughput: 35572.00 images/second
+
+Sample feature map (first image, first channel, top-left 5x5):
+-0.003 -0.017 -0.018 -0.016 -0.017 
+-0.004 -0.009 -0.008 -0.010 -0.007 
+-0.006 -0.010 -0.010 -0.006 -0.005 
+-0.007 -0.010 -0.005 -0.005 -0.011 
+-0.008 -0.004 -0.007 -0.009 -0.007 
+
+✓ Configuration complete!
+
+========================================
+CONFIGURATION: Large
+========================================
+Input Size: 1024x1024
+Kernel: 7x7, Count: 16
+Batch Size: 64
+Padding: 3, Stride: 1
+Thread Coarsening Factor: 2
+
+Loading chest X-ray images...
+  Loading images from: ../data/chest_xray/train/NORMAL
+    Loaded 32 images
+  Loading images from: ../data/chest_xray/train/PNEUMONIA
+    Loaded 32 images
+Loaded: 32 NORMAL + 32 PNEUMONIA = 64 total
+
+Running direct convolution...
+Running shared memory with thread coarsening...
+Feature maps saved to pooled_feature_maps_Large.txt
+
+=== PERFORMANCE RESULTS ===
+
+Performance comparison:
+  Direct Convolution: 73.714 ms
+  Shared Memory + Thread Coarsening: 59.793 ms
+  Speedup: 1.23x
+
+Layer timings (Shared Memory + Thread Coarsening):
+  Convolution: 59.793 ms
+  ReLU Activation: 6.427 ms
+  Max Pooling: 4.208 ms
+  Total: 70.428 ms
+
+Verification:
+  Max difference: 0.000000e+00
+  Results match: YES
+
+Throughput: 908.73 images/second
+
+Sample feature map (first image, first channel, top-left 5x5):
+0.002 0.010 0.001 -0.007 -0.007 
+-0.003 0.004 -0.006 -0.013 -0.011 
+-0.024 -0.021 -0.025 -0.029 -0.026 
+-0.043 -0.044 -0.056 -0.057 -0.055 
+-0.043 -0.046 -0.056 -0.057 -0.056 
+
+✓ Configuration complete!
+
+========================================
+ALL CONFIGURATIONS COMPLETE
+========================================
