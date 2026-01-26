@@ -424,7 +424,6 @@ void runConfiguration(const CNNConfig *cfg) {
     printf("\n=== Results ===\n");
     printf("Output size after convolution: %dx%d\n", outputSize, outputSize);
     printf("Output size after pooling: %dx%d\n\n", poolOutputSize, poolOutputSize);
-    printf("Constant memory used: %.2f KB / 64 KB\n\n", 0.0f);
 
     printf("Layer timings:\n");
     printf("  Convolution: %.3f ms\n", timing[0]);
