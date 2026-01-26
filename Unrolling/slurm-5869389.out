@@ -1,0 +1,135 @@
+Checking libraries:
+	libcurand.so.10 => /appl/spack/v020/install-tree/gcc-10.4.0/cuda-12.6.1-tauwpv/lib64/libcurand.so.10 (0x00007fffb9894000)
+Starting run...
+=== Multi-Configuration Chest X-Ray CNN Benchmark ===
+Testing three different configurations:
+  1. Small (32x32) - MNIST-like
+  2. Medium (256x256) - ResNet Standard
+  3. Large (1024x1024) - High-Res X-Ray
+
+========================================
+CONFIGURATION: Small
+========================================
+Input Size: 32x32
+Kernel: 3x3, Count: 16
+Batch Size: 64
+Padding: 1, Stride: 1
+
+Loading chest X-ray images...
+  Loading images from: ../data/chest_xray/train/NORMAL
+    Loaded 32 images
+  Loading images from: ../data/chest_xray/train/PNEUMONIA
+    Loaded 32 images
+Loaded: 32 NORMAL + 32 PNEUMONIA = 64 total
+
+Running CNN forward pass...
+Feature maps saved to pooled_feature_maps_Small.txt
+
+=== Results ===
+Output size after convolution: 32x32
+Output size after pooling: 16x16
+
+Constant memory used: 0.56 KB / 64 KB
+
+Layer timings:
+  Convolution: 0.083 ms
+  ReLU Activation: 0.017 ms
+  Max Pooling: 0.023 ms
+  Total: 0.123 ms
+
+Throughput: 520833.34 images/second
+
+Sample feature map (first image, first channel, top-left 5x5):
+-0.028 -0.065 -0.064 -0.062 -0.081 
+-0.000 -0.059 -0.096 -0.116 -0.138 
+-0.006 -0.044 -0.070 -0.115 -0.135 
+-0.010 -0.038 -0.058 -0.110 -0.140 
+-0.011 -0.030 -0.060 -0.111 -0.137 
+
+✓ Configuration complete!
+
+========================================
+CONFIGURATION: Medium
+========================================
+Input Size: 256x256
+Kernel: 3x3, Count: 16
+Batch Size: 64
+Padding: 1, Stride: 1
+
+Loading chest X-ray images...
+  Loading images from: ../data/chest_xray/train/NORMAL
+    Loaded 32 images
+  Loading images from: ../data/chest_xray/train/PNEUMONIA
+    Loaded 32 images
+Loaded: 32 NORMAL + 32 PNEUMONIA = 64 total
+
+Running CNN forward pass...
+Feature maps saved to pooled_feature_maps_Medium.txt
+
+=== Results ===
+Output size after convolution: 256x256
+Output size after pooling: 128x128
+
+Constant memory used: 0.56 KB / 64 KB
+
+Layer timings:
+  Convolution: 1.214 ms
+  ReLU Activation: 0.404 ms
+  Max Pooling: 0.284 ms
+  Total: 1.903 ms
+
+Throughput: 33638.32 images/second
+
+Sample feature map (first image, first channel, top-left 5x5):
+-0.003 -0.017 -0.018 -0.016 -0.017 
+-0.004 -0.009 -0.008 -0.010 -0.007 
+-0.006 -0.010 -0.010 -0.006 -0.005 
+-0.007 -0.010 -0.005 -0.005 -0.011 
+-0.008 -0.004 -0.007 -0.009 -0.007 
+
+✓ Configuration complete!
+
+========================================
+CONFIGURATION: Large
+========================================
+Input Size: 1024x1024
+Kernel: 7x7, Count: 16
+Batch Size: 64
+Padding: 3, Stride: 1
+
+Loading chest X-ray images...
+  Loading images from: ../data/chest_xray/train/NORMAL
+    Loaded 32 images
+  Loading images from: ../data/chest_xray/train/PNEUMONIA
+    Loaded 32 images
+Loaded: 32 NORMAL + 32 PNEUMONIA = 64 total
+
+Running CNN forward pass...
+Feature maps saved to pooled_feature_maps_Large.txt
+
+=== Results ===
+Output size after convolution: 1024x1024
+Output size after pooling: 512x512
+
+Constant memory used: 3.06 KB / 64 KB
+
+Layer timings:
+  Convolution: 38.374 ms
+  ReLU Activation: 6.417 ms
+  Max Pooling: 4.221 ms
+  Total: 49.013 ms
+
+Throughput: 1305.78 images/second
+
+Sample feature map (first image, first channel, top-left 5x5):
+0.002 0.010 0.001 -0.007 -0.007 
+-0.003 0.004 -0.006 -0.013 -0.011 
+-0.024 -0.021 -0.025 -0.029 -0.026 
+-0.043 -0.044 -0.056 -0.057 -0.055 
+-0.043 -0.046 -0.056 -0.057 -0.056 
+
+✓ Configuration complete!
+
+========================================
+ALL CONFIGURATIONS COMPLETE
+========================================
