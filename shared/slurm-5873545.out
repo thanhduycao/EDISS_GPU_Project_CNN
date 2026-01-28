@@ -1,0 +1,437 @@
+The following modules were not unloaded:
+  (Use "module --force purge" to unload all):
+
+  1) csc-tools
+Checking libraries:
+Starting run...
+=== Multi-Configuration Chest X-Ray CNN Benchmark ===
+Testing three different configurations:
+  1. Small (32x32) - MNIST-like
+  2. Medium (256x256) - ResNet Standard
+  3. Large (1024x1024) - High-Res X-Ray
+
+========================================
+CONFIGURATION: Small
+========================================
+Input Size: 32x32
+Kernel: 3x3, Count: 16
+Batch Size: 64
+Padding: 1, Stride: 1
+
+Loading chest X-ray images...
+  Loading images from: ../data/chest_xray/train/NORMAL
+    Loaded 32 images
+  Loading images from: ../data/chest_xray/train/PNEUMONIA
+    Loaded 32 images
+Loaded: 32 NORMAL + 32 PNEUMONIA = 64 total
+
+Kernel size: 0.56 KB
+Running CNN forward pass...
+Feature maps saved to pooled_feature_maps_Small.txt
+
+=== Results ===
+Output size after convolution: 32x32
+Output size after pooling: 16x16
+
+Kernel memory used: 0.56 KB (global memory)
+
+Layer timings:
+  Convolution: 0.083 ms
+  ReLU Activation: 0.011 ms
+  Max Pooling: 0.011 ms
+  Total: 0.105 ms
+
+Throughput: 606796.12 images/second
+
+Sample feature map (first image, first channel, top-left 5x5):
+-0.028 -0.065 -0.064 -0.062 -0.081 
+-0.000 -0.059 -0.096 -0.116 -0.138 
+-0.006 -0.044 -0.070 -0.115 -0.135 
+-0.010 -0.038 -0.058 -0.110 -0.140 
+-0.011 -0.030 -0.060 -0.111 -0.137 
+
+✓ Configuration complete!
+
+========================================
+CONFIGURATION: Medium
+========================================
+Input Size: 256x256
+Kernel: 3x3, Count: 16
+Batch Size: 64
+Padding: 1, Stride: 1
+
+Loading chest X-ray images...
+  Loading images from: ../data/chest_xray/train/NORMAL
+    Loaded 32 images
+  Loading images from: ../data/chest_xray/train/PNEUMONIA
+    Loaded 32 images
+Loaded: 32 NORMAL + 32 PNEUMONIA = 64 total
+
+Kernel size: 0.56 KB
+Running CNN forward pass...
+Feature maps saved to pooled_feature_maps_Medium.txt
+
+=== Results ===
+Output size after convolution: 256x256
+Output size after pooling: 128x128
+
+Kernel memory used: 0.56 KB (global memory)
+
+Layer timings:
+  Convolution: 1.246 ms
+  ReLU Activation: 0.404 ms
+  Max Pooling: 0.283 ms
+  Total: 1.933 ms
+
+Throughput: 33103.82 images/second
+
+Sample feature map (first image, first channel, top-left 5x5):
+-0.003 -0.017 -0.018 -0.016 -0.017 
+-0.004 -0.009 -0.008 -0.010 -0.007 
+-0.006 -0.010 -0.010 -0.006 -0.005 
+-0.007 -0.010 -0.005 -0.005 -0.011 
+-0.008 -0.004 -0.007 -0.009 -0.007 
+
+✓ Configuration complete!
+
+========================================
+CONFIGURATION: Large
+========================================
+Input Size: 1024x1024
+Kernel: 7x7, Count: 16
+Batch Size: 64
+Padding: 3, Stride: 1
+
+Loading chest X-ray images...
+  Loading images from: ../data/chest_xray/train/NORMAL
+    Loaded 32 images
+  Loading images from: ../data/chest_xray/train/PNEUMONIA
+    Loaded 32 images
+Loaded: 32 NORMAL + 32 PNEUMONIA = 64 total
+
+Kernel size: 3.06 KB
+Running CNN forward pass...
+Feature maps saved to pooled_feature_maps_Large.txt
+
+=== Results ===
+Output size after convolution: 1024x1024
+Output size after pooling: 512x512
+
+Kernel memory used: 3.06 KB (global memory)
+
+Layer timings:
+  Convolution: 52.456 ms
+  ReLU Activation: 6.411 ms
+  Max Pooling: 4.216 ms
+  Total: 63.084 ms
+
+Throughput: 1014.53 images/second
+
+Sample feature map (first image, first channel, top-left 5x5):
+0.002 0.010 0.001 -0.007 -0.007 
+-0.003 0.004 -0.006 -0.013 -0.011 
+-0.024 -0.021 -0.025 -0.029 -0.026 
+-0.043 -0.044 -0.056 -0.057 -0.055 
+-0.043 -0.046 -0.056 -0.057 -0.056 
+
+✓ Configuration complete!
+
+========================================
+ALL CONFIGURATIONS COMPLETE
+========================================
+=== Multi-Configuration Chest X-Ray CNN Benchmark ===
+Testing three different configurations:
+  1. Small (32x32) - MNIST-like
+  2. Medium (256x256) - ResNet Standard
+  3. Large (1024x1024) - High-Res X-Ray
+
+========================================
+CONFIGURATION: Small
+========================================
+Input Size: 32x32
+Kernel: 3x3, Count: 16
+Batch Size: 64
+Padding: 1, Stride: 1
+
+Loading chest X-ray images...
+  Loading images from: ../data/chest_xray/train/NORMAL
+    Loaded 32 images
+  Loading images from: ../data/chest_xray/train/PNEUMONIA
+    Loaded 32 images
+Loaded: 32 NORMAL + 32 PNEUMONIA = 64 total
+
+Kernel size: 0.56 KB
+Running CNN forward pass...
+Feature maps saved to pooled_feature_maps_Small.txt
+
+=== Results ===
+Output size after convolution: 32x32
+Output size after pooling: 16x16
+
+Kernel memory used: 0.56 KB (global memory)
+
+Layer timings:
+  Convolution: 0.095 ms
+  ReLU Activation: 0.012 ms
+  Max Pooling: 0.014 ms
+  Total: 0.121 ms
+
+Throughput: 527983.12 images/second
+
+Sample feature map (first image, first channel, top-left 5x5):
+-0.028 -0.065 -0.064 -0.062 -0.081 
+-0.000 -0.059 -0.096 -0.116 -0.138 
+-0.006 -0.044 -0.070 -0.115 -0.135 
+-0.010 -0.038 -0.058 -0.110 -0.140 
+-0.011 -0.030 -0.060 -0.111 -0.137 
+
+✓ Configuration complete!
+
+========================================
+CONFIGURATION: Medium
+========================================
+Input Size: 256x256
+Kernel: 3x3, Count: 16
+Batch Size: 64
+Padding: 1, Stride: 1
+
+Loading chest X-ray images...
+  Loading images from: ../data/chest_xray/train/NORMAL
+    Loaded 32 images
+  Loading images from: ../data/chest_xray/train/PNEUMONIA
+    Loaded 32 images
+Loaded: 32 NORMAL + 32 PNEUMONIA = 64 total
+
+Kernel size: 0.56 KB
+Running CNN forward pass...
+Feature maps saved to pooled_feature_maps_Medium.txt
+
+=== Results ===
+Output size after convolution: 256x256
+Output size after pooling: 128x128
+
+Kernel memory used: 0.56 KB (global memory)
+
+Layer timings:
+  Convolution: 1.316 ms
+  ReLU Activation: 0.426 ms
+  Max Pooling: 0.287 ms
+  Total: 2.030 ms
+
+Throughput: 31529.83 images/second
+
+Sample feature map (first image, first channel, top-left 5x5):
+-0.003 -0.017 -0.018 -0.016 -0.017 
+-0.004 -0.009 -0.008 -0.010 -0.007 
+-0.006 -0.010 -0.010 -0.006 -0.005 
+-0.007 -0.010 -0.005 -0.005 -0.011 
+-0.008 -0.004 -0.007 -0.009 -0.007 
+
+✓ Configuration complete!
+
+========================================
+CONFIGURATION: Large
+========================================
+Input Size: 1024x1024
+Kernel: 7x7, Count: 16
+Batch Size: 64
+Padding: 3, Stride: 1
+
+Loading chest X-ray images...
+  Loading images from: ../data/chest_xray/train/NORMAL
+    Loaded 32 images
+  Loading images from: ../data/chest_xray/train/PNEUMONIA
+    Loaded 32 images
+Loaded: 32 NORMAL + 32 PNEUMONIA = 64 total
+
+Kernel size: 3.06 KB
+Running CNN forward pass...
+Feature maps saved to pooled_feature_maps_Large.txt
+
+=== Results ===
+Output size after convolution: 1024x1024
+Output size after pooling: 512x512
+
+Kernel memory used: 3.06 KB (global memory)
+
+Layer timings:
+  Convolution: 52.473 ms
+  ReLU Activation: 6.714 ms
+  Max Pooling: 4.267 ms
+  Total: 63.453 ms
+
+Throughput: 1008.62 images/second
+
+Sample feature map (first image, first channel, top-left 5x5):
+0.002 0.010 0.001 -0.007 -0.007 
+-0.003 0.004 -0.006 -0.013 -0.011 
+-0.024 -0.021 -0.025 -0.029 -0.026 
+-0.043 -0.044 -0.056 -0.057 -0.055 
+-0.043 -0.046 -0.056 -0.057 -0.056 
+
+✓ Configuration complete!
+
+========================================
+ALL CONFIGURATIONS COMPLETE
+========================================
+Generating '/tmp/dcao/5873545/nsys-report-1f54.qdstrm'
+[1/7] [0%                          ] shared_cnn_nsys.nsys-rep[1/7] [0%                          ] shared_cnn_nsys.nsys-rep[1/7] [===23%                      ] shared_cnn_nsys.nsys-rep[1/7] [========40%                 ] shared_cnn_nsys.nsys-rep[1/7] [============57%             ] shared_cnn_nsys.nsys-rep[1/7] [===============66%          ] shared_cnn_nsys.nsys-rep[1/7] [==================75%       ] shared_cnn_nsys.nsys-rep[1/7] [==================77%       ] shared_cnn_nsys.nsys-rep[1/7] [==================78%       ] shared_cnn_nsys.nsys-rep[1/7] [===================82%      ] shared_cnn_nsys.nsys-rep[1/7] [========================99% ] shared_cnn_nsys.nsys-rep[1/7] [========================100%] shared_cnn_nsys.nsys-rep[1/7] [========================100%] shared_cnn_nsys.nsys-rep
+[2/7] [0%                          ] shared_cnn_nsys.sqlite[2/7] [1%                          ] shared_cnn_nsys.sqlite[2/7] [2%                          ] shared_cnn_nsys.sqlite[2/7] [3%                          ] shared_cnn_nsys.sqlite[2/7] [4%                          ] shared_cnn_nsys.sqlite[2/7] [5%                          ] shared_cnn_nsys.sqlite[2/7] [6%                          ] shared_cnn_nsys.sqlite[2/7] [7%                          ] shared_cnn_nsys.sqlite[2/7] [8%                          ] shared_cnn_nsys.sqlite[2/7] [9%                          ] shared_cnn_nsys.sqlite[2/7] [10%                         ] shared_cnn_nsys.sqlite[2/7] [11%                         ] shared_cnn_nsys.sqlite[2/7] [12%                         ] shared_cnn_nsys.sqlite[2/7] [13%                         ] shared_cnn_nsys.sqlite[2/7] [14%                         ] shared_cnn_nsys.sqlite[2/7] [=15%                        ] shared_cnn_nsys.sqlite[2/7] [=16%                        ] shared_cnn_nsys.sqlite[2/7] [=17%                        ] shared_cnn_nsys.sqlite[2/7] [==18%                       ] shared_cnn_nsys.sqlite[2/7] [==19%                       ] shared_cnn_nsys.sqlite[2/7] [==20%                       ] shared_cnn_nsys.sqlite[2/7] [==21%                       ] shared_cnn_nsys.sqlite[2/7] [===22%                      ] shared_cnn_nsys.sqlite[2/7] [===23%                      ] shared_cnn_nsys.sqlite[2/7] [===24%                      ] shared_cnn_nsys.sqlite[2/7] [====25%                     ] shared_cnn_nsys.sqlite[2/7] [====26%                     ] shared_cnn_nsys.sqlite[2/7] [====27%                     ] shared_cnn_nsys.sqlite[2/7] [====28%                     ] shared_cnn_nsys.sqlite[2/7] [=====29%                    ] shared_cnn_nsys.sqlite[2/7] [=====30%                    ] shared_cnn_nsys.sqlite[2/7] [=====31%                    ] shared_cnn_nsys.sqlite[2/7] [=====32%                    ] shared_cnn_nsys.sqlite[2/7] [======33%                   ] shared_cnn_nsys.sqlite[2/7] [======34%                   ] shared_cnn_nsys.sqlite[2/7] [======35%                   ] shared_cnn_nsys.sqlite[2/7] [=======36%                  ] shared_cnn_nsys.sqlite[2/7] [=======37%                  ] shared_cnn_nsys.sqlite[2/7] [=======38%                  ] shared_cnn_nsys.sqlite[2/7] [=======39%                  ] shared_cnn_nsys.sqlite[2/7] [========40%                 ] shared_cnn_nsys.sqlite[2/7] [========41%                 ] shared_cnn_nsys.sqlite[2/7] [========42%                 ] shared_cnn_nsys.sqlite[2/7] [=========43%                ] shared_cnn_nsys.sqlite[2/7] [=========44%                ] shared_cnn_nsys.sqlite[2/7] [=========45%                ] shared_cnn_nsys.sqlite[2/7] [=========46%                ] shared_cnn_nsys.sqlite[2/7] [==========47%               ] shared_cnn_nsys.sqlite[2/7] [==========48%               ] shared_cnn_nsys.sqlite[2/7] [==========49%               ] shared_cnn_nsys.sqlite[2/7] [===========50%              ] shared_cnn_nsys.sqlite[2/7] [===========51%              ] shared_cnn_nsys.sqlite[2/7] [===========52%              ] shared_cnn_nsys.sqlite[2/7] [===========53%              ] shared_cnn_nsys.sqlite[2/7] [============54%             ] shared_cnn_nsys.sqlite[2/7] [============55%             ] shared_cnn_nsys.sqlite[2/7] [============56%             ] shared_cnn_nsys.sqlite[2/7] [============57%             ] shared_cnn_nsys.sqlite[2/7] [=============58%            ] shared_cnn_nsys.sqlite[2/7] [=============59%            ] shared_cnn_nsys.sqlite[2/7] [=============60%            ] shared_cnn_nsys.sqlite[2/7] [==============61%           ] shared_cnn_nsys.sqlite[2/7] [==============62%           ] shared_cnn_nsys.sqlite[2/7] [==============63%           ] shared_cnn_nsys.sqlite[2/7] [==============64%           ] shared_cnn_nsys.sqlite[2/7] [===============65%          ] shared_cnn_nsys.sqlite[2/7] [===============66%          ] shared_cnn_nsys.sqlite[2/7] [===============67%          ] shared_cnn_nsys.sqlite[2/7] [================68%         ] shared_cnn_nsys.sqlite[2/7] [================69%         ] shared_cnn_nsys.sqlite[2/7] [================70%         ] shared_cnn_nsys.sqlite[2/7] [================71%         ] shared_cnn_nsys.sqlite[2/7] [=================72%        ] shared_cnn_nsys.sqlite[2/7] [=================73%        ] shared_cnn_nsys.sqlite[2/7] [=================74%        ] shared_cnn_nsys.sqlite[2/7] [==================75%       ] shared_cnn_nsys.sqlite[2/7] [==================76%       ] shared_cnn_nsys.sqlite[2/7] [==================77%       ] shared_cnn_nsys.sqlite[2/7] [==================78%       ] shared_cnn_nsys.sqlite[2/7] [===================79%      ] shared_cnn_nsys.sqlite[2/7] [===================80%      ] shared_cnn_nsys.sqlite[2/7] [===================81%      ] shared_cnn_nsys.sqlite[2/7] [===================82%      ] shared_cnn_nsys.sqlite[2/7] [====================83%     ] shared_cnn_nsys.sqlite[2/7] [====================84%     ] shared_cnn_nsys.sqlite[2/7] [====================85%     ] shared_cnn_nsys.sqlite[2/7] [=====================86%    ] shared_cnn_nsys.sqlite[2/7] [=====================87%    ] shared_cnn_nsys.sqlite[2/7] [=====================88%    ] shared_cnn_nsys.sqlite[2/7] [=====================89%    ] shared_cnn_nsys.sqlite[2/7] [======================90%   ] shared_cnn_nsys.sqlite[2/7] [======================91%   ] shared_cnn_nsys.sqlite[2/7] [======================92%   ] shared_cnn_nsys.sqlite[2/7] [=======================93%  ] shared_cnn_nsys.sqlite[2/7] [=======================94%  ] shared_cnn_nsys.sqlite[2/7] [=======================95%  ] shared_cnn_nsys.sqlite[2/7] [=======================96%  ] shared_cnn_nsys.sqlite[2/7] [========================97% ] shared_cnn_nsys.sqlite[2/7] [========================98% ] shared_cnn_nsys.sqlite[2/7] [========================99% ] shared_cnn_nsys.sqlite[2/7] [========================100%] shared_cnn_nsys.sqlite[2/7] [========================100%] shared_cnn_nsys.sqlite
+ERROR: /appl/spack/v020/install-tree/gcc-10.4.0/cuda-12.6.1-tauwpv/nsight-systems-2024.4.2/host-linux-x64/python/bin/python: /lib64/libstdc++.so.6: version `GLIBCXX_3.4.26' not found (required by /appl/spack/v020/install-tree/gcc-10.4.0/cuda-12.6.1-tauwpv/nsight-systems-2024.4.2/host-linux-x64/python/bin/python)
+ERROR: /appl/spack/v020/install-tree/gcc-10.4.0/cuda-12.6.1-tauwpv/nsight-systems-2024.4.2/host-linux-x64/python/bin/python: /lib64/libstdc++.so.6: version `GLIBCXX_3.4.26' not found (required by /appl/spack/v020/install-tree/gcc-10.4.0/cuda-12.6.1-tauwpv/nsight-systems-2024.4.2/host-linux-x64/python/bin/python)
+ERROR: /appl/spack/v020/install-tree/gcc-10.4.0/cuda-12.6.1-tauwpv/nsight-systems-2024.4.2/host-linux-x64/python/bin/python: /lib64/libstdc++.so.6: version `GLIBCXX_3.4.26' not found (required by /appl/spack/v020/install-tree/gcc-10.4.0/cuda-12.6.1-tauwpv/nsight-systems-2024.4.2/host-linux-x64/python/bin/python)
+ERROR: /appl/spack/v020/install-tree/gcc-10.4.0/cuda-12.6.1-tauwpv/nsight-systems-2024.4.2/host-linux-x64/python/bin/python: /lib64/libstdc++.so.6: version `GLIBCXX_3.4.26' not found (required by /appl/spack/v020/install-tree/gcc-10.4.0/cuda-12.6.1-tauwpv/nsight-systems-2024.4.2/host-linux-x64/python/bin/python)
+ERROR: /appl/spack/v020/install-tree/gcc-10.4.0/cuda-12.6.1-tauwpv/nsight-systems-2024.4.2/host-linux-x64/python/bin/python: /lib64/libstdc++.so.6: version `GLIBCXX_3.4.26' not found (required by /appl/spack/v020/install-tree/gcc-10.4.0/cuda-12.6.1-tauwpv/nsight-systems-2024.4.2/host-linux-x64/python/bin/python)
+[3/7] Executing 'nvtx_sum' stats report
+[4/7] Executing 'cuda_api_sum' stats report
+[5/7] Executing 'cuda_gpu_kern_sum' stats report
+[6/7] Executing 'cuda_gpu_mem_time_sum' stats report
+[7/7] Executing 'cuda_gpu_mem_size_sum' stats report
+Generated:
+    /users/dcao/EDISS_GPU_Project_CNN/shared/shared_cnn_nsys.nsys-rep
+    /users/dcao/EDISS_GPU_Project_CNN/shared/shared_cnn_nsys.sqlite
+==PROF== Connected to process 3367182 (/users/dcao/EDISS_GPU_Project_CNN/shared/shared_cnn)
+==PROF== Profiling "convolutionSharedKernel": 0%....50%....100% - 47 passes
+==PROF== Profiling "convolutionSharedKernel": 0%....50%....100% - 48 passes
+==PROF== Profiling "convolutionSharedKernel": 0%
+==WARNING== Backing up device memory in system memory. Kernel replay might be slow. Consider using "--replay-mode application" to avoid memory save-and-restore.
+
+==WARNING== Launching the workload is taking more time than expected. If this continues to hang, terminate the profile and re-try by profiling the range of all related launches using '--replay-mode range'. See https://docs.nvidia.com/nsight-compute/ProfilingGuide/index.html#replay for more details.
+....50%....100% - 47 passes
+=== Multi-Configuration Chest X-Ray CNN Benchmark ===
+Testing three different configurations:
+  1. Small (32x32) - MNIST-like
+  2. Medium (256x256) - ResNet Standard
+  3. Large (1024x1024) - High-Res X-Ray
+
+========================================
+CONFIGURATION: Small
+========================================
+Input Size: 32x32
+Kernel: 3x3, Count: 16
+Batch Size: 64
+Padding: 1, Stride: 1
+
+Loading chest X-ray images...
+  Loading images from: ../data/chest_xray/train/NORMAL
+    Loaded 32 images
+  Loading images from: ../data/chest_xray/train/PNEUMONIA
+    Loaded 32 images
+Loaded: 32 NORMAL + 32 PNEUMONIA = 64 total
+
+Kernel size: 0.56 KB
+Running CNN forward pass...
+Feature maps saved to pooled_feature_maps_Small.txt
+
+=== Results ===
+Output size after convolution: 32x32
+Output size after pooling: 16x16
+
+Kernel memory used: 0.56 KB (global memory)
+
+Layer timings:
+  Convolution: 2795.067 ms
+  ReLU Activation: 0.175 ms
+  Max Pooling: 0.103 ms
+  Total: 2795.346 ms
+
+Throughput: 22.90 images/second
+
+Sample feature map (first image, first channel, top-left 5x5):
+-0.028 -0.065 -0.064 -0.062 -0.081 
+-0.000 -0.059 -0.096 -0.116 -0.138 
+-0.006 -0.044 -0.070 -0.115 -0.135 
+-0.010 -0.038 -0.058 -0.110 -0.140 
+-0.011 -0.030 -0.060 -0.111 -0.137 
+
+✓ Configuration complete!
+
+========================================
+CONFIGURATION: Medium
+========================================
+Input Size: 256x256
+Kernel: 3x3, Count: 16
+Batch Size: 64
+Padding: 1, Stride: 1
+
+Loading chest X-ray images...
+  Loading images from: ../data/chest_xray/train/NORMAL
+    Loaded 32 images
+  Loading images from: ../data/chest_xray/train/PNEUMONIA
+    Loaded 32 images
+Loaded: 32 NORMAL + 32 PNEUMONIA = 64 total
+
+Kernel size: 0.56 KB
+Running CNN forward pass...
+Feature maps saved to pooled_feature_maps_Medium.txt
+
+=== Results ===
+Output size after convolution: 256x256
+Output size after pooling: 128x128
+
+Kernel memory used: 0.56 KB (global memory)
+
+Layer timings:
+  Convolution: 1190.723 ms
+  ReLU Activation: 0.398 ms
+  Max Pooling: 0.289 ms
+  Total: 1191.410 ms
+
+Throughput: 53.72 images/second
+
+Sample feature map (first image, first channel, top-left 5x5):
+-0.003 -0.017 -0.018 -0.016 -0.017 
+-0.004 -0.009 -0.008 -0.010 -0.007 
+-0.006 -0.010 -0.010 -0.006 -0.005 
+-0.007 -0.010 -0.005 -0.005 -0.011 
+-0.008 -0.004 -0.007 -0.009 -0.007 
+
+✓ Configuration complete!
+
+========================================
+CONFIGURATION: Large
+========================================
+Input Size: 1024x1024
+Kernel: 7x7, Count: 16
+Batch Size: 64
+Padding: 3, Stride: 1
+
+Loading chest X-ray images...
+  Loading images from: ../data/chest_xray/train/NORMAL
+    Loaded 32 images
+  Loading images from: ../data/chest_xray/train/PNEUMONIA
+    Loaded 32 images
+Loaded: 32 NORMAL + 32 PNEUMONIA = 64 total
+
+Kernel size: 3.06 KB
+Running CNN forward pass...
+Feature maps saved to pooled_feature_maps_Large.txt
+
+=== Results ===
+Output size after convolution: 1024x1024
+Output size after pooling: 512x512
+
+Kernel memory used: 3.06 KB (global memory)
+
+Layer timings:
+  Convolution: 26935.832 ms
+  ReLU Activation: 6.315 ms
+  Max Pooling: 4.116 ms
+  Total: 26946.264 ms
+
+Throughput: 2.38 images/second
+
+Sample feature map (first image, first channel, top-left 5x5):
+0.002 0.010 0.001 -0.007 -0.007 
+-0.003 0.004 -0.006 -0.013 -0.011 
+-0.024 -0.021 -0.025 -0.029 -0.026 
+-0.043 -0.044 -0.056 -0.057 -0.055 
+-0.043 -0.046 -0.056 -0.057 -0.056 
+
+✓ Configuration complete!
+
+========================================
+ALL CONFIGURATIONS COMPLETE
+========================================
+==PROF== Disconnected from process 3367182
+==PROF== Report: /users/dcao/EDISS_GPU_Project_CNN/shared/shared_cnn_compute.ncu-rep
