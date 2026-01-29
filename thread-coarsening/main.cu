@@ -1,12 +1,3 @@
-/**
- * Multi-Config CNN with Thread Coarsening and Real X-Ray Images
- * 
- * Combines:
- * - Thread coarsening optimization for performance
- * - Multi-configuration benchmarking
- * - Real chest X-ray image loading
- */
-
  #define STB_IMAGE_IMPLEMENTATION
  #include "../stb_image.h"
  
@@ -18,7 +9,6 @@
  #include <dirent.h>
  #include <cuda_runtime.h>
  
- // Configuration structure
  typedef struct {
      int inputSize;
      int inputChannels;
@@ -27,11 +17,10 @@
      int padding;
      int stride;
      int batchSize;
-     int coarseFactor;  // Thread coarsening factor
+     int coarseFactor; 
      const char *name;
  } CNNConfig;
  
- // CUDA error checking
  #define CHECK_CUDA_ERROR(call) { \
      cudaError_t err = call; \
      if (err != cudaSuccess) { \
@@ -41,7 +30,6 @@
      } \
  }
  
- // Initialize convolution kernels
  void initializeKernels(float *kernels, const CNNConfig *cfg) {
      float scale = sqrtf(6.0f / (cfg->kernelSize * cfg->kernelSize * 
                                  (cfg->inputChannels + cfg->kernelCount)));
@@ -60,7 +48,6 @@
      }
  }
  
- // Load and resize a single X-ray image
  int loadXrayImage(float *input, const char *imagePath, int batchIndex, 
                    int inputSize, int inputChannels) {
      int width, height, channels;
@@ -73,7 +60,6 @@
  
      int offset = batchIndex * inputChannels * inputSize * inputSize;
  
-     // Simple resize using nearest neighbor
      for (int y = 0; y < inputSize; y++) {
          for (int x = 0; x < inputSize; x++) {
              int src_x = (x * width) / inputSize;
@@ -81,7 +67,6 @@
              int src_idx = src_y * width + src_x;
              int dst_idx = offset + y * inputSize + x;
  
-             // Normalize to [0, 1]
              input[dst_idx] = img[src_idx] / 255.0f;
          }
      }
@@ -90,14 +75,12 @@
      return 1;
  }
  
- // Comparator for qsort
  static int cmpstringp(const void *p1, const void *p2) {
      const char *a = *(const char * const *)p1;
      const char *b = *(const char * const *)p2;
      return strcmp(a, b);
  }
  
- // Load images from directory (DETERMINISTIC)
  int loadImagesFromDirectory(float *input, const char *dirPath, int maxImages, 
                              int startIdx, int inputSize, int inputChannels) {
      DIR *dir;
@@ -112,7 +95,6 @@
          return 0;
      }
  
-     // Collect filenames
      while ((entry = readdir(dir)) != NULL) {
          if (entry->d_name[0] == '.') continue;
  
@@ -129,12 +111,10 @@
      }
      closedir(dir);
  
-     // Sort filenames alphabetically
      qsort(files, nfiles, sizeof(char *), cmpstringp);
  
      printf("  Loading images from: %s\n", dirPath);
  
-     // Load first maxImages
      for (int i = 0; i < nfiles && count < maxImages; i++) {
          char fullPath[512];
          snprintf(fullPath, sizeof(fullPath), "%s/%s", dirPath, files[i]);
@@ -144,7 +124,6 @@
          }
      }
  
-     // Free all allocated filenames
      for (int i = 0; i < nfiles; i++) {
          free(files[i]);
      }
@@ -153,9 +132,7 @@
      return count;
  }
  
- // ------------------- CUDA Kernels -------------------
  
- // Direct convolution kernel (baseline)
  __global__ void convolutionDirectKernel(
      float *input, float *kernels, float *output,
      int batchSize, int inputChannels, int inputSize,
@@ -204,7 +181,6 @@
      ] = sum;
  }
  
- // Shared memory optimized convolution kernel WITH thread coarsening
  __global__ void convolutionSharedKernel(
      float *input, float *kernels, float *output,
      int batchSize, int inputChannels, int inputSize,
@@ -231,7 +207,6 @@
  
      float *sharedInput = sharedData;
  
-     // Collaborative loading of shared memory
      int totalElements = tileSizeWithPadding * tileSizeWithPadding;
      int threadsPerBlock = blockDim.x * blockDim.y;
      int flatThreadIdx = ty * blockDim.x + tx;
@@ -262,7 +237,6 @@
  
      __syncthreads();
  
-     // Each thread computes coarseFactor x coarseFactor outputs
      if (b < batchSize) {
          for (int dy = 0; dy < coarseFactor; dy++) {
              for (int dx = 0; dx < coarseFactor; dx++) {
@@ -308,13 +282,11 @@
      }
  }
  
- // ReLU activation kernel
  __global__ void reluActivationKernel(float *data, int size) {
      int idx = blockIdx.x * blockDim.x + threadIdx.x;
      if (idx < size) data[idx] = fmaxf(0.0f, data[idx]);
  }
  
- // Max pooling kernel
  __global__ void maxPoolingKernel(
      float *input, float *output,
      int batchSize, int channels, int inputSize,
@@ -356,7 +328,6 @@
      ] = maxVal;
  }
  
- // Forward pass
  void forwardCNN(
      float *d_input,
      float *d_kernels,
@@ -373,7 +344,6 @@
  
      int outputSize = (cfg->inputSize + 2*cfg->padding - cfg->kernelSize) / cfg->stride + 1;
  
-     // Convolution
      cudaEventRecord(start);
  
      if (useSharedMemory) {
@@ -414,7 +384,6 @@
      cudaEventSynchronize(stop);
      cudaEventElapsedTime(&timing[0], start, stop);
  
-     // ReLU
      int totalElements = cfg->batchSize * cfg->kernelCount * outputSize * outputSize;
      int blockSize = 256;
      int gridSize = (totalElements + blockSize - 1) / blockSize;
@@ -427,7 +396,6 @@
      cudaEventSynchronize(stop);
      cudaEventElapsedTime(&timing[1], start, stop);
  
-     // Max Pooling
      int poolSize = 2;
      int poolStride = 2;
      int poolOutputSize = outputSize / poolStride;
@@ -453,7 +421,6 @@
      cudaEventDestroy(stop);
  }
  
- // Run single configuration
  void runConfiguration(const CNNConfig *cfg) {
      printf("\n========================================\n");
      printf("CONFIGURATION: %s\n", cfg->name);
@@ -467,7 +434,6 @@
      int outputSize = (cfg->inputSize + 2*cfg->padding - cfg->kernelSize) / cfg->stride + 1;
      int poolOutputSize = outputSize / 2;
  
-     // Allocate host memory
      size_t inputBytes = cfg->batchSize * cfg->inputChannels * cfg->inputSize * cfg->inputSize * sizeof(float);
      size_t kernelBytes = cfg->kernelCount * cfg->inputChannels * cfg->kernelSize * cfg->kernelSize * sizeof(float);
      size_t outputBytes = cfg->batchSize * cfg->kernelCount * outputSize * outputSize * sizeof(float);
@@ -489,7 +455,6 @@
          return;
      }
  
-     // Load real X-ray images
      printf("Loading chest X-ray images...\n");
      int normalCount = loadImagesFromDirectory(
          h_input,
@@ -512,10 +477,8 @@
      printf("Loaded: %d NORMAL + %d PNEUMONIA = %d total\n\n",
             normalCount, pneumoniaCount, normalCount + pneumoniaCount);
  
-     // Initialize kernels
      initializeKernels(h_kernels, cfg);
  
-     // Allocate device memory
      float *d_input, *d_kernels;
      float *d_conv_output_direct, *d_activation_direct, *d_pooling_output_direct;
      float *d_conv_output_shared, *d_activation_shared, *d_pooling_output_shared;
@@ -529,35 +492,29 @@
      CHECK_CUDA_ERROR(cudaMalloc(&d_activation_shared, outputBytes));
      CHECK_CUDA_ERROR(cudaMalloc(&d_pooling_output_shared, poolBytes));
  
-     // Copy to device
      CHECK_CUDA_ERROR(cudaMemcpy(d_input, h_input, inputBytes, cudaMemcpyHostToDevice));
      CHECK_CUDA_ERROR(cudaMemcpy(d_kernels, h_kernels, kernelBytes, cudaMemcpyHostToDevice));
  
-     // Run direct convolution
      printf("Running direct convolution...\n");
      float direct_timing[3] = {0};
      forwardCNN(d_input, d_kernels, d_conv_output_direct, d_activation_direct, 
                 d_pooling_output_direct, cfg, false, direct_timing);
  
-     // Run shared memory + thread coarsening
      printf("Running shared memory with thread coarsening...\n");
      float shared_timing[3] = {0};
      forwardCNN(d_input, d_kernels, d_conv_output_shared, d_activation_shared,
                 d_pooling_output_shared, cfg, true, shared_timing);
  
-     // Copy results back
      CHECK_CUDA_ERROR(cudaMemcpy(h_output_direct, d_conv_output_direct, outputBytes, cudaMemcpyDeviceToHost));
      CHECK_CUDA_ERROR(cudaMemcpy(h_output_shared, d_conv_output_shared, outputBytes, cudaMemcpyDeviceToHost));
      CHECK_CUDA_ERROR(cudaMemcpy(h_pooling_output, d_pooling_output_shared, poolBytes, cudaMemcpyDeviceToHost));
  
-     // Verify results
      float maxDiff = 0.0f;
      for (size_t i = 0; i < cfg->batchSize * cfg->kernelCount * outputSize * outputSize; i++) {
          float diff = fabs(h_output_direct[i] - h_output_shared[i]);
          maxDiff = fmaxf(maxDiff, diff);
      }
  
-     // Save feature maps
      char filename[256];
      snprintf(filename, sizeof(filename), "pooled_feature_maps_%s.txt", cfg->name);
      FILE *fp = fopen(filename, "w");
@@ -583,7 +540,6 @@
          printf("Feature maps saved to %s\n", filename);
      }
  
-     // Print results
      printf("\n=== PERFORMANCE RESULTS ===\n\n");
      printf("Performance comparison:\n");
      printf("  Direct Convolution: %.3f ms\n", direct_timing[0]);
@@ -600,7 +556,6 @@
      printf("  Max difference: %e\n", maxDiff);
      printf("  Results match: %s\n\n", (maxDiff < 1e-4) ? "YES" : "NO");
  
-     // Calculate throughput
      float totalTimeSeconds = (shared_timing[0] + shared_timing[1] + shared_timing[2]) / 1000.0f;
      float imagesPerSecond = cfg->batchSize / totalTimeSeconds;
      printf("Throughput: %.2f images/second\n", imagesPerSecond);
@@ -614,7 +569,6 @@
          printf("\n");
      }
  
-     // Free memory
      free(h_input);
      free(h_kernels);
      free(h_output_direct);
@@ -639,9 +593,7 @@
      printf("=== Multi-Configuration CNN with Thread Coarsening ===\n");
      printf("Testing three configurations with real chest X-ray images\n\n");
  
-     // Define three configurations
      CNNConfig configs[3] = {
-         // Config 1: Small (MNIST-like)
          {
              .inputSize = 32,
              .inputChannels = 1,
@@ -653,7 +605,6 @@
              .coarseFactor = 2,
              .name = "Small"
          },
-         // Config 2: Medium (ResNet Standard)
          {
              .inputSize = 256,
              .inputChannels = 1,
@@ -665,7 +616,6 @@
              .coarseFactor = 2,
              .name = "Medium"
          },
-         // Config 3: Large (High-Res X-Ray)
          {
              .inputSize = 1024,
              .inputChannels = 1,
@@ -679,7 +629,6 @@
          }
      };
  
-     // Run all three configurations
      for (int i = 0; i < 3; i++) {
          runConfiguration(&configs[i]);
      }
