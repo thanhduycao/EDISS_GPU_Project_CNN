@@ -97,14 +97,14 @@ int loadXrayImage(float *input, const char *imagePath, int batchIndex,
     return 1;
 }
 
-// Comparator for qsort (sort filenames alphabetically)
+// Comparator for qsort
 static int cmpstringp(const void *p1, const void *p2) {
     const char *a = *(const char * const *)p1;
     const char *b = *(const char * const *)p2;
     return strcmp(a, b);
 }
 
-// Load images from directory (DETERMINISTIC: sorts filenames)
+// Load images from directory
 int loadImagesFromDirectory(float *input, const char *dirPath, int maxImages, 
                             int startIdx, int inputSize, int inputChannels) {
     DIR *dir;
@@ -136,7 +136,7 @@ int loadImagesFromDirectory(float *input, const char *dirPath, int maxImages,
     }
     closedir(dir);
 
-    // Sort filenames alphabetically (deterministic selection/order)
+    // Sort filenames alphabetically
     qsort(files, nfiles, sizeof(char *), cmpstringp);
 
     printf("  Loading images from: %s\n", dirPath);
@@ -161,8 +161,6 @@ int loadImagesFromDirectory(float *input, const char *dirPath, int maxImages,
 }
 
 // ------------------- CUDA Kernels -------------------
-
-// V5: Tiled Convolution with Loop Unrolling
 // Optimizations: Shared Memory + Constant Memory + Pragma Unroll
 template <int K_SIZE>
 __global__ void convolutionUnrolledKernel(
@@ -223,7 +221,6 @@ __global__ void convolutionUnrolledKernel(
         float sum = 0.0f;
 
         for (int c = 0; c < inputChannels; c++) {
-            // NOW WE CAN UNROLL!
             // The compiler knows K_SIZE is a constant number for this specific version.
             #pragma unroll
             for (int ky = 0; ky < K_SIZE; ky++) {
@@ -233,7 +230,6 @@ __global__ void convolutionUnrolledKernel(
                     int shared_y = ty * stride + ky;
                     int shared_x = tx * stride + kx;
 
-                    // ... [Math] ...
                     float in_val = sharedData[
                         c * tileSizeWithPadding * tileSizeWithPadding +
                         shared_y * tileSizeWithPadding + shared_x
@@ -351,7 +347,7 @@ void forwardCNN(
         );
     }
     else {
-        // Fallback for unexpected sizes (won't be unrolled effectively, or just fail)
+        // Fallback for unexpected sizes 
         printf("Error: Unsupported kernel size for unrolling: %d\n", cfg->kernelSize);
     }
 
@@ -566,7 +562,7 @@ int main() {
 
     // Define three configurations
     CNNConfig configs[3] = {
-        // Config 1: Small (MNIST-like) - Correctness Verification
+        // Config 1: Small (MNIST-like)
         {
             .inputSize = 32,
             .inputChannels = 1,
@@ -577,7 +573,7 @@ int main() {
             .batchSize = 64,
             .name = "Small"
         },
-        // Config 2: Medium (ResNet Standard) - Compute Benchmark
+        // Config 2: Medium (ResNet Standard)
         {
             .inputSize = 256,
             .inputChannels = 1,
@@ -588,7 +584,7 @@ int main() {
             .batchSize = 64,
             .name = "Medium"
         },
-        // Config 3: Large (High-Res X-Ray) - Bandwidth Benchmark
+        // Config 3: Large (High-Res X-Ray)
         {
             .inputSize = 1024,
             .inputChannels = 1,

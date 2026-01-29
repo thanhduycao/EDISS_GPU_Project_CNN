@@ -97,7 +97,7 @@
      return strcmp(a, b);
  }
  
- // Load images from directory (DETERMINISTIC)
+ // Load images from directory
  int loadImagesFromDirectory(float *input, const char *dirPath, int maxImages, 
                              int startIdx, int inputSize, int inputChannels) {
      DIR *dir;

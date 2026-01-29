@@ -14,13 +14,13 @@ module purge
 module load gcc/10.4.0
 module load cuda/12.6.1
 
-# 2. THE FIX: Explicitly export the library path so the GPU node sees it
+# 2. Explicitly export the library path so the GPU node sees it
 export LD_LIBRARY_PATH=$LD_LIBRARY_PATH
 
 # 3. Navigate to the folder
 cd $SLURM_SUBMIT_DIR
 
-# 4. Debug: Check if the library is found (should verify the fix)
+# 4. Check if the library is found
 echo "Checking libraries:"
 ldd ./shared_cnn | grep curand
 

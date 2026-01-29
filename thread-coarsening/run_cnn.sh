@@ -16,7 +16,7 @@ module load cuda/11.5.0
 # Avoid CUDA memory fragmentation (important for large models)
 export LD_LIBRARY_PATH=$LD_LIBRARY_PATH
 
-# Show allocated GPU (sanity check: should show NO MIG table)
+# Show allocated GPU
 nvidia-smi
 
 # Always launch with srun inside batch job
