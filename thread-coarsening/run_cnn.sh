@@ -13,7 +13,7 @@
 module purge
 module load gcc/10.4.0
 module load cuda/11.5.0
-# Avoid CUDA memory fragmentation (important for large models)
+
 export LD_LIBRARY_PATH=$LD_LIBRARY_PATH
 
 # Show allocated GPU
